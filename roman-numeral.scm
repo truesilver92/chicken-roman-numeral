@@ -1,4 +1,7 @@
 
+(use srfi-1)
+(use regex)
+
 (define (number->roman
          number)
   (let ((rules '(
@@ -23,4 +26,4 @@
           (make-string number #\I)
           rules)))
 
-(number->roman 43)
+(print (number->roman 3999))
