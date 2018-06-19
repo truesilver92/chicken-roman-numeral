@@ -12,13 +12,13 @@
         (recur rule
                (list (- (first results)
                         (first rule))
-                     (append! (last results)
+                     (append (last results)
                               (last rule))))))
   (let ((rules `(
                  (1000 ,(string->list "M"))
                  (900 ,(string->list "CM"))
                  (500 ,(string->list "D"))
-                 (100 ,(string->list "CD"))
+                 (400 ,(string->list "CD"))
                  (100 ,(string->list "C"))
                  (90 ,(string->list "XC"))
                  (50 ,(string->list "L"))
