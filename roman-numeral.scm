@@ -1,6 +1,4 @@
 
-(use lazy-lists)
-
 (define (number->roman
          number)
   (let ((rules '(
