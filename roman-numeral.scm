@@ -1,26 +1,37 @@
 
+(use srfi-1)
+
 (define (number->roman
          number)
-  (let ((rules '(
-                 ("IIIII" "V")
-                 ("IIII" "IV")
-                 ("VV" "X")
-                 ("VIV" "IX")
-                 ("XXXXX" "L")
-                 ("XXXX" "XL")
-                 ("LL" "C")
-                 ("LXL" "XC")
-                 ("CCCCC" "D")
-                 ("CCCC" "CD")
-                 ("DD" "M")
-                 ("DCD" "CM"))))
-    (fold (lambda
-              (rule results)
-            (string-substitute (first rule)
-                               (last rule)
-                               results
-                               'all))
-          (make-string number #\I)
-          rules)))
+  (define (recur
+           rule
+           results)
+    (if (> (first rule)
+           (first results))
+        results
+        (recur rule
+               (list (- (first results)
+                        (first rule))
+                     (append! (last results)
+                              (last rule))))))
+  (let ((rules `(
+                 (1000 ,(string->list "M"))
+                 (900 ,(string->list "CM"))
+                 (500 ,(string->list "D"))
+                 (100 ,(string->list "CD"))
+                 (100 ,(string->list "C"))
+                 (90 ,(string->list "XC"))
+                 (50 ,(string->list "L"))
+                 (40 ,(string->list "XL"))
+                 (10 ,(string->list "X"))
+                 (9 ,(string->list "IX"))
+                 (5 ,(string->list "V"))
+                 (4 ,(string->list "IV"))
+                 (1 ,(string->list "I")))))
+    (list->string
+     (last
+      (fold recur
+            (list number '())
+            rules)))))
 
 (number->roman 43)
