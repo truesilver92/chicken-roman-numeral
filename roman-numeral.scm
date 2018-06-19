@@ -34,4 +34,4 @@
             (list number '())
             rules)))))
 
-(number->roman 43)
+(print (number->roman 3999))
